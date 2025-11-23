@@ -1,101 +1,207 @@
-# Fullstack Shopping Cart (Go + Gin + GORM + React)
+🛒 Shopping Cart – Full Stack Project
 
-This is a very simple shopping cart project that feels like a student side project.  
-The Go backend exposes a small REST API with token-based login, carts, and orders.  
-The React frontend lets you log in, view items, add to cart, and checkout with a few buttons.
+Built with Go (Gin + GORM) + SQLite + React
+By: Shyamjee Srivastav
 
-## Tech Stack
-- Backend: Go, Gin, GORM, SQLite
-- Frontend: React (CRA, plain JavaScript)
-- Tests: Ginkgo + Gomega
+This is a simple full-stack Shopping Cart application built as per the assignment PDF.
+It includes user signup/login, items, cart system, order checkout, and token-based authentication.
 
-## Folder Structure
-```
-backend/   # Go API (Gin + GORM)
-frontend/  # React app created with create-react-app
-README.md
-shopping-cart.postman_collection.json
-```
+📌 Features Overview
+Backend (Go + Gin + GORM + SQLite)
 
-## Backend Setup
-```bash
+User Signup & Login
+
+Token-based Authentication (stored in DB per user)
+
+Items API (POST + GET)
+
+Cart API (Add to Cart + View Cart)
+
+Order API (Checkout + View Orders)
+
+SQLite Database with Auto-Migrations
+
+Simple, readable student-friendly code
+
+Ginkgo Test Suite for:
+
+signup
+
+login
+
+add to cart
+
+checkout
+
+Frontend (React)
+
+Login Page
+
+Items Page
+
+Add to Cart Button
+
+Checkout Button
+
+View Cart
+
+View Orders
+
+Session Token stored in localStorage
+
+Calls backend via simple fetch()
+
+Minimal styling (assignment requirement)
+
+🗂️ Project Structure
+Shopping-cart/
+│
+├── backend/
+│   ├── main.go
+│   ├── database.go
+│   ├── go.mod
+│   ├── models/
+│   ├── controllers/
+│   ├── routes/
+│   ├── tests/
+│   └── shopping.db (auto-created)
+│
+└── frontend/
+    ├── package.json
+    ├── src/
+    │   ├── App.js
+    │   ├── api.js
+    │   ├── pages/
+    │   │   ├── Login.js
+    │   │   └── Items.js
+    │   └── components/
+    │       └── ItemList.js
+    └── public/
+
+🚀 How to Run the Project
+1️⃣ Start Backend
 cd backend
-go mod tidy          # install deps
-go run .             # starts on http://localhost:8080
-```
+go run .
 
-## Frontend Setup
-```bash
+
+Backend runs on:
+👉 http://localhost:8080
+
+2️⃣ Start Frontend
 cd frontend
-npm install          # installs packages
-npm start            # starts React on http://localhost:3000
-```
+npm install
+npm start
 
-## Token-Based Login
-1. Create a user with `POST /users`.
-2. Call `POST /users/login` with username/password.
-3. The API returns a `token`. Only one token per user (overwrites the previous one).
-4. Store the token in `localStorage` (frontend already does this).
-5. Send the token in the `Authorization` header when calling protected endpoints (`POST /carts`, `POST /orders`).
 
-## Cart → Order Flow
-1. User logs in to get a token.
-2. User clicks an item in the UI (sends `POST /carts` with `item_id` and `quantity`).
-3. Cart is unique per user.
-4. Checkout button calls `POST /orders`, which copies cart items into `Order` and empties the cart.
-5. Orders button fetches the list to show the history.
+Frontend runs on:
+👉 http://localhost:3003
 
-## API Endpoints
-```text
-POST /users
-{
-  "username": "alice",
-  "password": "pass"
-}
+🔐 Authentication Flow
 
-GET /users
+User logs in through /users/login
 
-POST /users/login
-{
-  "username": "alice",
-  "password": "pass"
-}
+Backend validates credentials
 
-POST /items
-{
-  "name": "Pen",
-  "price": 2.5
-}
+Token is generated (simple random string)
 
-GET /items
+Token stored in:
 
-POST /carts        (needs Authorization header)
-{
-  "item_id": 1,
-  "quantity": 1
-}
+user table (CurrentToken)
 
-GET /carts
+browser localStorage
 
-POST /orders       (needs Authorization header)
+Protected APIs require:
 
-GET /orders
-```
+Authorization: <token>
 
-## Screenshots
-*(Add screenshots here if you have them. You can drop PNG/JPG into a `docs/` folder.)*
+🧪 API Endpoints
+Users
+Method	Endpoint	Description
+POST	/users	Create user
+GET	/users	List users
+POST	/users/login	Login + Get token
+Items
+Method	Endpoint	Description
+POST	/items	Create item
+GET	/items	List items
+Carts
+Method	Endpoint	Description
+POST	/carts	Add item to cart
+GET	/carts	View cart
+Orders
+Method	Endpoint	Description
+POST	/orders	Checkout
+GET	/orders	View orders
+🧪 Running Tests (Ginkgo)
 
-## Running Ginkgo Tests
-```bash
-cd backend
+Inside backend folder:
+
 go test ./...
-```
-This runs the specs inside `backend/tests`, which use a temporary SQLite database.
 
-## Troubleshooting
-- **Go command not found**: Install Go 1.21+ and re-open your terminal so `$PATH` updates.
-- **React API calls failing**: Make sure the Go backend is running on `http://localhost:8080` and CORS is allowed (Gin default is OK).
-- **Token errors**: Ensure you are sending the `Authorization` header exactly as returned from `/users/login`.
-- **SQLite file locked**: Stop any running backend before re-running tests so the DB file can be deleted safely.
-- **Port already in use**: Change the React dev server port with `set PORT=3001 && npm start` or adjust the backend port in `main.go`.
 
+Tests cover:
+
+Signup
+
+Login
+
+Token validation
+
+Add to cart
+
+Checkout flow
+
+📸 Screenshots (Add your own)
+/screenshots/
+  - login.png
+  - items.png
+  - cart.png
+  - checkout.png
+  - orders.png
+
+📦 Postman Collection
+
+A Postman collection is included for all API calls:
+shopping-cart.postman_collection.json
+
+🔧 Technologies Used
+Backend
+
+Go 1.21+
+
+Gin Web Framework
+
+GORM ORM
+
+SQLite Database
+
+Ginkgo Testing Framework
+
+Frontend
+
+React.js
+
+Fetch API
+
+LocalStorage
+
+🎯 Key Learning Outcomes
+
+Full-stack development workflow
+
+REST API design
+
+Token authentication
+
+Database modeling
+
+Frontend API integration
+
+Testing backend logic
+
+Clean folder structure
+
+🙋‍♂️ Author
+
+Shyamjee Srivastav
+GitHub: https://github.com/shyamfitness
