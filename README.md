@@ -54,6 +54,7 @@ Calls backend via simple fetch()
 Minimal styling (assignment requirement)
 
 🗂️ Project Structure
+
 Shopping-cart/
 │
 ├── backend/
@@ -77,6 +78,7 @@ Shopping-cart/
     │   └── components/
     │       └── ItemList.js
     └── public/
+    
 
 🚀 How to Run the Project
 1️⃣ Start Backend
